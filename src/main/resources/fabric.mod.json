@@ -1,0 +1,14 @@
+{
+  "id": "reiaddons",
+  "name": "REIAddons",
+  "description": "This mod is some random addons to the mod Roughly Enough Items. I've no idea why I am doing this but I have no life and I am bored so here I am.",
+  "version": "1.0.0",
+  "side": "client",
+  "initializers": [
+    "me.shedaniel.reiaddons.REIAddonsInit"
+  ],
+  "requires": {
+    "fabric": "*",
+    "roughlyenoughitems": "2.0.0.39"
+  }
+}
