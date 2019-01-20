@@ -2,12 +2,14 @@ package me.shedaniel.reiaddons;
 
 import com.google.common.collect.Lists;
 import me.shedaniel.rei.api.IRecipeDisplay;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddonsCompostingDisplay implements IRecipeDisplay {
     
@@ -51,7 +53,7 @@ public class AddonsCompostingDisplay implements IRecipeDisplay {
     
     @Override
     public List<List<ItemStack>> getRequiredItems() {
-        return getInput();
+        return Arrays.asList(new LinkedList<>(order.stream().map(ItemProvider::getItem).map(Item::getDefaultStack).collect(Collectors.toList())));
     }
     
     public List<ItemProvider> getItemsByOrder() {
