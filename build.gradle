@@ -6,13 +6,14 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 archivesBaseName = "REIAddons"
-version = "1.0.1"
+version = "1.0.2"
 
 minecraft {
 }
 
 repositories {
     maven { url 'https://jitpack.io' }
+    maven { url "https://tehnut.info/maven/" }
 }
 
 dependencies {
@@ -24,7 +25,10 @@ dependencies {
     modCompile "net.fabricmc:fabric:0.1.4.77"
 
     //If it shows "Read timed out", wait for 3-5 minutes and refresh and it should give you the latest build
-    modCompile 'com.github.shedaniel:RoughlyEnoughItems:2.1.0.41'
+    modCompile 'com.github.shedaniel:RoughlyEnoughItems:2.1.0.43'
+
+    //For your plugin to get loaded
+    modCompile "info.tehnut.pluginloader:plugin-loader:1.14-1.0.6-8"
 }
 
 processResources {

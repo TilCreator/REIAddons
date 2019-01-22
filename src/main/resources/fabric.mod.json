@@ -8,6 +8,7 @@
   ],
   "requires": {
     "fabric": "*",
-    "roughlyenoughitems": "2.0.0.39"
+    "roughlyenoughitems": "2.0.0.39",
+    "pluginloader": "1.0.6"
   }
 }

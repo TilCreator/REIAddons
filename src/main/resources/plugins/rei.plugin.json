@@ -1,8 +1,0 @@
-{
-  "plugins": [
-    {
-      "identifier": "reiaddons:addons_plugin",
-      "class": "me.shedaniel.reiaddons.AddonsPlugin"
-    }
-  ]
-}

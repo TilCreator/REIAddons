@@ -64,7 +64,7 @@ public class AddonsCompostingCategory implements IRecipeCategory<AddonsCompostin
             for(int x = 0; x < 8; x++) {
                 widgets.add(new ItemSlotWidget((int) bounds.getCenterX() - 72 + x * 18, bounds.y + y * 18,
                         stacks.size() > i ? Arrays.asList(stacks.get(i).getItem().getDefaultStack()) : Lists.newArrayList(),
-                        true, true, containerGui) {
+                        true, true, containerGui, true) {
                     @Override
                     protected List<String> getExtraToolTips(ItemStack stack) {
                         final List<String>[] thing = new List[]{null};
@@ -79,7 +79,7 @@ public class AddonsCompostingCategory implements IRecipeCategory<AddonsCompostin
                 });
                 i++;
             }
-        widgets.add(new ItemSlotWidget((int) startingPoint.x + 34, startingPoint.y + 5, recipeDisplay.getOutput(), false, true, containerGui));
+        widgets.add(new ItemSlotWidget((int) startingPoint.x + 34, startingPoint.y + 5, recipeDisplay.getOutput(), false, true, containerGui, true));
         return widgets;
     }
     
