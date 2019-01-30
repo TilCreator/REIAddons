@@ -1,6 +1,5 @@
 package me.shedaniel.reiaddons;
 
-import com.google.common.collect.Lists;
 import me.shedaniel.rei.api.IRecipeDisplay;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemProvider;
