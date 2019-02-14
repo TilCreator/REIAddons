@@ -12,14 +12,15 @@ import java.util.stream.Collectors;
 
 public class AddonsCompostingDisplay implements IRecipeDisplay {
     
-    private List<ItemProvider> order;
+    private List<ItemProvider> order, allItems;
     private Map<ItemProvider, Float> inputMap;
     private ItemStack[] output;
     
-    public AddonsCompostingDisplay(List<ItemProvider> order, Map<ItemProvider, Float> inputMap, ItemStack[] output) {
+    public AddonsCompostingDisplay(List<ItemProvider> order, Map<ItemProvider, Float> inputMap, List<ItemProvider> allItems, ItemStack[] output) {
         this.order = order;
         this.inputMap = inputMap;
         this.output = output;
+        this.allItems = allItems;
     }
     
     @Override
@@ -30,7 +31,7 @@ public class AddonsCompostingDisplay implements IRecipeDisplay {
     @Override
     public List<List<ItemStack>> getInput() {
         List<List<ItemStack>> lists = new ArrayList<>();
-        order.stream().forEachOrdered(itemProvider -> {
+        allItems.stream().forEachOrdered(itemProvider -> {
             lists.add(Arrays.asList(itemProvider.getItem().getDefaultStack()));
         });
         return lists;
@@ -52,7 +53,7 @@ public class AddonsCompostingDisplay implements IRecipeDisplay {
     
     @Override
     public List<List<ItemStack>> getRequiredItems() {
-        return Arrays.asList(new LinkedList<>(order.stream().map(ItemProvider::getItem).map(Item::getDefaultStack).collect(Collectors.toList())));
+        return Arrays.asList(new LinkedList<>(allItems.stream().map(ItemProvider::getItem).map(Item::getDefaultStack).collect(Collectors.toList())));
     }
     
     public List<ItemProvider> getItemsByOrder() {

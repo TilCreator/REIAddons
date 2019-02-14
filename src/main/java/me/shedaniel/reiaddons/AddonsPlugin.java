@@ -2,6 +2,7 @@ package me.shedaniel.reiaddons;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import me.shedaniel.rei.api.IItemRegisterer;
 import me.shedaniel.rei.api.IRecipePlugin;
 import me.shedaniel.rei.client.RecipeHelper;
 import net.minecraft.block.ComposterBlock;
@@ -20,13 +21,18 @@ public class AddonsPlugin implements IRecipePlugin {
     static final Identifier COMPOSTING = new Identifier("reiaddons", "plugins/composting");
     
     @Override
-    public void registerPluginCategories() {
-        RecipeHelper.getInstance().registerCategory(new AddonsCompostingCategory());
+    public void registerItems(IItemRegisterer iItemRegisterer) {
+    
     }
     
     @Override
-    public void registerRecipes() {
-        Map<ItemProvider, Float> map = Maps.newHashMap();
+    public void registerPluginCategories(RecipeHelper recipeHelper) {
+        recipeHelper.registerCategory(new AddonsCompostingCategory());
+    }
+    
+    @Override
+    public void registerRecipeDisplays(RecipeHelper recipeHelper) {
+        Map<ItemProvider, Float> map = Maps.newLinkedHashMap();
         if (ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.isEmpty())
             ComposterBlock.registerDefaultCompostableItems();
         ComposterBlock.ITEM_TO_LEVEL_INCREASE_CHANCE.keySet().forEach(itemProvider -> {
@@ -43,13 +49,13 @@ public class AddonsPlugin implements IRecipePlugin {
             for(int j = i; j < i + 48; j++)
                 if (j < stacks.size())
                     thisStacks.add(stacks.get(j));
-            RecipeHelper.getInstance().registerRecipe(COMPOSTING, new AddonsCompostingDisplay(thisStacks, map, new ItemStack[]{new ItemStack(Items.BONE_MEAL)}));
+            recipeHelper.registerDisplay(COMPOSTING, new AddonsCompostingDisplay(thisStacks, map, Lists.newArrayList(map.keySet()), new ItemStack[]{new ItemStack(Items.BONE_MEAL)}));
         }
     }
     
     @Override
-    public void registerSpeedCraft() {
-        RecipeHelper.getInstance().registerSpeedCraftButtonArea(COMPOSTING, null);
+    public void registerSpeedCraft(RecipeHelper recipeHelper) {
+        recipeHelper.registerSpeedCraftButtonArea(COMPOSTING, null);
     }
     
 }
