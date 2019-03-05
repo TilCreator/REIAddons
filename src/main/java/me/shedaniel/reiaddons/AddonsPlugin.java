@@ -2,9 +2,9 @@ package me.shedaniel.reiaddons;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import me.shedaniel.rei.api.IItemRegisterer;
-import me.shedaniel.rei.api.IRecipePlugin;
-import me.shedaniel.rei.client.RecipeHelper;
+import me.shedaniel.rei.api.ItemRegistry;
+import me.shedaniel.rei.api.REIPlugin;
+import me.shedaniel.rei.api.RecipeHelper;
 import net.minecraft.block.ComposterBlock;
 import net.minecraft.item.ItemProvider;
 import net.minecraft.item.ItemStack;
@@ -16,12 +16,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class AddonsPlugin implements IRecipePlugin {
+public class AddonsPlugin implements REIPlugin {
     
-    static final Identifier COMPOSTING = new Identifier("reiaddons", "plugins/composting");
+    public static final Identifier COMPOSTING = new Identifier("reiaddons", "plugins/composting");
     
     @Override
-    public void registerItems(IItemRegisterer iItemRegisterer) {
+    public void registerItems(ItemRegistry itemRegistry) {
     
     }
     

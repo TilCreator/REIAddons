@@ -1,6 +1,6 @@
 package me.shedaniel.reiaddons;
 
-import me.shedaniel.rei.api.IRecipeDisplay;
+import me.shedaniel.rei.api.RecipeDisplay;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemProvider;
 import net.minecraft.item.ItemStack;
@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AddonsCompostingDisplay implements IRecipeDisplay {
+public class AddonsCompostingDisplay implements RecipeDisplay {
     
     private List<ItemProvider> order, allItems;
     private Map<ItemProvider, Float> inputMap;
@@ -24,8 +24,8 @@ public class AddonsCompostingDisplay implements IRecipeDisplay {
     }
     
     @Override
-    public Recipe getRecipe() {
-        return null;
+    public Optional<Recipe> getRecipe() {
+        return Optional.empty();
     }
     
     @Override

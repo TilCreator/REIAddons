@@ -2,7 +2,9 @@ package me.shedaniel.reiaddons;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
-import me.shedaniel.rei.api.IRecipeCategory;
+import me.shedaniel.rei.api.DisplaySettings;
+import me.shedaniel.rei.api.RecipeCategory;
+import me.shedaniel.rei.api.RecipeDisplay;
 import me.shedaniel.rei.gui.widget.IWidget;
 import me.shedaniel.rei.gui.widget.ItemSlotWidget;
 import me.shedaniel.rei.gui.widget.RecipeBaseWidget;
@@ -21,7 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class AddonsCompostingCategory implements IRecipeCategory<AddonsCompostingDisplay> {
+public class AddonsCompostingCategory implements RecipeCategory<AddonsCompostingDisplay> {
     
     private static final Identifier DISPLAY_TEXTURE = new Identifier("reiaddons", "textures/gui/display.png");
     
@@ -38,11 +40,6 @@ public class AddonsCompostingCategory implements IRecipeCategory<AddonsCompostin
     @Override
     public String getCategoryName() {
         return I18n.translate("category.reiaddons.composting");
-    }
-    
-    @Override
-    public boolean usesFullPage() {
-        return true;
     }
     
     @Override
@@ -79,6 +76,31 @@ public class AddonsCompostingCategory implements IRecipeCategory<AddonsCompostin
             }
         widgets.add(new ItemSlotWidget((int) startingPoint.x + 34, startingPoint.y + 5, recipeDisplaySupplier.get().getOutput(), false, true, true));
         return widgets;
+    }
+    
+    @Override
+    public DisplaySettings getDisplaySettings() {
+        return new DisplaySettings() {
+            @Override
+            public int getDisplayHeight(RecipeCategory iRecipeCategory) {
+                return 140;
+            }
+            
+            @Override
+            public int getDisplayWidth(RecipeCategory iRecipeCategory, RecipeDisplay display) {
+                return 150;
+            }
+            
+            @Override
+            public int getMaximumRecipePerPage(RecipeCategory iRecipeCategory) {
+                return -1;
+            }
+            
+            @Override
+            public int getFixedRecipesPerPage() {
+                return 1;
+            }
+        };
     }
     
 }
