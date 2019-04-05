@@ -5,9 +5,9 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import me.shedaniel.rei.api.DisplaySettings;
 import me.shedaniel.rei.api.RecipeCategory;
 import me.shedaniel.rei.api.RecipeDisplay;
-import me.shedaniel.rei.gui.widget.IWidget;
 import me.shedaniel.rei.gui.widget.ItemSlotWidget;
 import me.shedaniel.rei.gui.widget.RecipeBaseWidget;
+import me.shedaniel.rei.gui.widget.Widget;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GuiLighting;
@@ -43,16 +43,16 @@ public class AddonsCompostingCategory implements RecipeCategory<AddonsComposting
     }
     
     @Override
-    public List<IWidget> setupDisplay(Supplier<AddonsCompostingDisplay> recipeDisplaySupplier, Rectangle bounds) {
-        List<IWidget> widgets = Lists.newArrayList();
+    public List<Widget> setupDisplay(Supplier<AddonsCompostingDisplay> recipeDisplaySupplier, Rectangle bounds) {
+        List<Widget> widgets = Lists.newArrayList();
         Point startingPoint = new Point(bounds.x + bounds.width - 55, bounds.y + 110);
         widgets.add(new RecipeBaseWidget(bounds) {
             @Override
-            public void draw(int mouseX, int mouseY, float partialTicks) {
+            public void render(int mouseX, int mouseY, float partialTicks) {
                 GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
                 GuiLighting.disable();
                 MinecraftClient.getInstance().getTextureManager().bindTexture(DISPLAY_TEXTURE);
-                this.drawTexturedRect(startingPoint.x, startingPoint.y, 0, 0, 55, 26);
+                this.blit(startingPoint.x, startingPoint.y, 0, 0, 55, 26);
             }
         });
         List<ItemProvider> stacks = new LinkedList<>(recipeDisplaySupplier.get().getItemsByOrder());

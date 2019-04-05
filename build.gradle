@@ -6,27 +6,26 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 archivesBaseName = "REIAddons"
-version = "1.0.5"
+version = "1.0.6"
 
 minecraft {
 }
 
 repositories {
+    maven { url "https://minecraft.curseforge.com/api/maven" }
     maven { url "https://tehnut.info/maven/" }
-    maven { url "https://minecraft.curseforge.com/api/maven"}
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:19w09a"
-    mappings "net.fabricmc:yarn:19w09a.1"
+    minecraft "com.mojang:minecraft:19w14a"
+    mappings "net.fabricmc:yarn:19w14a.3"
     modCompile "net.fabricmc:fabric-loader:0.3.7.109"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modCompile "net.fabricmc:fabric:0.2.3.107"
-
-    modCompile 'roughly-enough-items:RoughlyEnoughItems:2.3.2.55'
-
-    //For your plugin to get loaded
+    modCompile 'roughly-enough-items:RoughlyEnoughItems:2.6.1.79'
+    modCompile "net.fabricmc:fabric:0.2.6.117"
+    compile "blue.endless:jankson:1.1.0"
+    modCompile "cloth:Cloth:0.1.6.19"
     modCompile "info.tehnut.pluginloader:plugin-loader:1.14-1.0.6-8"
 }
 
@@ -35,12 +34,4 @@ processResources {
         expand 'version': project.version
     }
     inputs.property "version", project.version
-}
-
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
-// If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
 }

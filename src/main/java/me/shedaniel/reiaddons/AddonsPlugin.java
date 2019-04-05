@@ -2,7 +2,6 @@ package me.shedaniel.reiaddons;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import me.shedaniel.rei.api.ItemRegistry;
 import me.shedaniel.rei.api.REIPlugin;
 import me.shedaniel.rei.api.RecipeHelper;
 import net.minecraft.block.ComposterBlock;
@@ -19,11 +18,6 @@ import java.util.Map;
 public class AddonsPlugin implements REIPlugin {
     
     public static final Identifier COMPOSTING = new Identifier("reiaddons", "plugins/composting");
-    
-    @Override
-    public void registerItems(ItemRegistry itemRegistry) {
-    
-    }
     
     @Override
     public void registerPluginCategories(RecipeHelper recipeHelper) {
@@ -51,11 +45,6 @@ public class AddonsPlugin implements REIPlugin {
                     thisStacks.add(stacks.get(j));
             recipeHelper.registerDisplay(COMPOSTING, new AddonsCompostingDisplay(thisStacks, map, Lists.newArrayList(map.keySet()), new ItemStack[]{new ItemStack(Items.BONE_MEAL)}));
         }
-    }
-    
-    @Override
-    public void registerSpeedCraft(RecipeHelper recipeHelper) {
-        recipeHelper.registerSpeedCraftButtonArea(COMPOSTING, null);
     }
     
 }
