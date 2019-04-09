@@ -1,7 +1,33 @@
 {
+  "schemaVersion": 1,
   "id": "reiaddons",
   "name": "REIAddons",
   "description": "This mod is some random addons to the mod Roughly Enough Items. I've no idea why I am doing this but I have no life and I am bored so here I am.",
   "version": "${version}",
-  "side": "client"
+  "authors": [
+    "Danielshe"
+  ],
+  "contact": {
+    "homepage": "https://minecraft.curseforge.com/projects/rei-addons",
+    "sources": "https://github.com/shedaniel/REIAddons",
+    "issues": "https://github.com/shedaniel/REIAddons/issues"
+  },
+  "icon": "pack.png",
+  "license": "MPL-2.0",
+  "environment": "client",
+  "requires": {
+    "fabricloader": ">=0.4.0"
+  },
+  "recommends": {
+    "roughlyenoughitems": ">=2.7"
+  },
+  "custom": {
+    "modmenu:clientsideOnly": true,
+    "roughlyenoughitems:plugins": [
+      {
+        "id": "addons_plugin",
+        "class": "me.shedaniel.reiaddons.AddonsPlugin"
+      }
+    ]
+  }
 }

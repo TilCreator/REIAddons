@@ -1,6 +1,0 @@
-[
-  {
-    "id": "addons_plugin",
-    "initializer": "me.shedaniel.reiaddons.AddonsPlugin"
-  }
-]
