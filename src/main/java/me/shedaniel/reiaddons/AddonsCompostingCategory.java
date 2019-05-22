@@ -5,6 +5,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import me.shedaniel.rei.api.DisplaySettings;
 import me.shedaniel.rei.api.RecipeCategory;
 import me.shedaniel.rei.api.RecipeDisplay;
+import me.shedaniel.rei.gui.renderables.RecipeRenderer;
 import me.shedaniel.rei.gui.widget.ItemSlotWidget;
 import me.shedaniel.rei.gui.widget.RecipeBaseWidget;
 import me.shedaniel.rei.gui.widget.Widget;
@@ -12,7 +13,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GuiLighting;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.item.ItemProvider;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -43,6 +44,21 @@ public class AddonsCompostingCategory implements RecipeCategory<AddonsComposting
     }
     
     @Override
+    public RecipeRenderer getSimpleRenderer(AddonsCompostingDisplay recipe) {
+        return new RecipeRenderer() {
+            @Override
+            public int getHeight() {
+                return 10 + MinecraftClient.getInstance().textRenderer.fontHeight;
+            }
+            
+            @Override
+            public void render(int x, int y, double mouseX, double mouseY, float delta) {
+                MinecraftClient.getInstance().textRenderer.draw(I18n.translate("text.reiaddons.composting.page", recipe.getPage() + 1), x + 5, y + 6, -1);
+            }
+        };
+    }
+    
+    @Override
     public List<Widget> setupDisplay(Supplier<AddonsCompostingDisplay> recipeDisplaySupplier, Rectangle bounds) {
         List<Widget> widgets = Lists.newArrayList();
         Point startingPoint = new Point(bounds.x + bounds.width - 55, bounds.y + 110);
@@ -55,16 +71,16 @@ public class AddonsCompostingCategory implements RecipeCategory<AddonsComposting
                 this.blit(startingPoint.x, startingPoint.y, 0, 0, 55, 26);
             }
         });
-        List<ItemProvider> stacks = new LinkedList<>(recipeDisplaySupplier.get().getItemsByOrder());
+        List<ItemConvertible> stacks = new LinkedList<>(recipeDisplaySupplier.get().getItemsByOrder());
         int i = 0;
         for(int y = 0; y < 6; y++)
             for(int x = 0; x < 8; x++) {
-                widgets.add(new ItemSlotWidget((int) bounds.getCenterX() - 72 + x * 18, bounds.y + y * 18, stacks.size() > i ? Arrays.asList(stacks.get(i).getItem().getDefaultStack()) : Lists.newArrayList(), true, true, true) {
+                widgets.add(new ItemSlotWidget((int) bounds.getCenterX() - 72 + x * 18, bounds.y + y * 18, stacks.size() > i ? Arrays.asList(stacks.get(i).asItem().getDefaultStack()) : Lists.newArrayList(), true, true, true) {
                     @Override
                     protected List<String> getExtraToolTips(ItemStack stack) {
                         final List<String>[] thing = new List[]{null};
                         recipeDisplaySupplier.get().getInputMap().forEach((itemProvider, aFloat) -> {
-                            if (itemProvider.getItem().equals(stack.getItem()))
+                            if (itemProvider.asItem().equals(stack.getItem()))
                                 thing[0] = Arrays.asList(I18n.translate("text.reiaddons.composting.chance", MathHelper.fastFloor(aFloat * 100)));
                         });
                         if (thing[0] != null)

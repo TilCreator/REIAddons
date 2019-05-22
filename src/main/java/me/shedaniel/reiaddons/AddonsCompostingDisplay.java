@@ -2,7 +2,7 @@ package me.shedaniel.reiaddons;
 
 import me.shedaniel.rei.api.RecipeDisplay;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemProvider;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
@@ -12,15 +12,21 @@ import java.util.stream.Collectors;
 
 public class AddonsCompostingDisplay implements RecipeDisplay {
     
-    private List<ItemProvider> order, allItems;
-    private Map<ItemProvider, Float> inputMap;
+    private List<ItemConvertible> order, allItems;
+    private Map<ItemConvertible, Float> inputMap;
     private ItemStack[] output;
+    private int page;
     
-    public AddonsCompostingDisplay(List<ItemProvider> order, Map<ItemProvider, Float> inputMap, List<ItemProvider> allItems, ItemStack[] output) {
+    public AddonsCompostingDisplay(int page, List<ItemConvertible> order, Map<ItemConvertible, Float> inputMap, List<ItemConvertible> allItems, ItemStack[] output) {
+        this.page = page;
         this.order = order;
         this.inputMap = inputMap;
         this.output = output;
         this.allItems = allItems;
+    }
+    
+    public int getPage() {
+        return page;
     }
     
     @Override
@@ -32,12 +38,12 @@ public class AddonsCompostingDisplay implements RecipeDisplay {
     public List<List<ItemStack>> getInput() {
         List<List<ItemStack>> lists = new ArrayList<>();
         allItems.stream().forEachOrdered(itemProvider -> {
-            lists.add(Arrays.asList(itemProvider.getItem().getDefaultStack()));
+            lists.add(Arrays.asList(itemProvider.asItem().getDefaultStack()));
         });
         return lists;
     }
     
-    public Map<ItemProvider, Float> getInputMap() {
+    public Map<ItemConvertible, Float> getInputMap() {
         return inputMap;
     }
     
@@ -53,10 +59,10 @@ public class AddonsCompostingDisplay implements RecipeDisplay {
     
     @Override
     public List<List<ItemStack>> getRequiredItems() {
-        return Arrays.asList(new LinkedList<>(allItems.stream().map(ItemProvider::getItem).map(Item::getDefaultStack).collect(Collectors.toList())));
+        return Arrays.asList(new LinkedList<>(allItems.stream().map(ItemConvertible::asItem).map(Item::getDefaultStack).collect(Collectors.toList())));
     }
     
-    public List<ItemProvider> getItemsByOrder() {
+    public List<ItemConvertible> getItemsByOrder() {
         return order;
     }
     

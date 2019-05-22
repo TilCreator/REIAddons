@@ -18,16 +18,15 @@
   "requires": {
     "fabricloader": ">=0.4.0"
   },
+  "entrypoints": {
+    "rei_plugins": [
+      "me.shedaniel.reiaddons.AddonsPlugin"
+    ]
+  },
   "recommends": {
-    "roughlyenoughitems": ">=2.7"
+    "roughlyenoughitems": ">=2.9.1"
   },
   "custom": {
-    "modmenu:clientsideOnly": true,
-    "roughlyenoughitems:plugins": [
-      {
-        "id": "addons_plugin",
-        "class": "me.shedaniel.reiaddons.AddonsPlugin"
-      }
-    ]
+    "modmenu:clientsideOnly": true
   }
 }
